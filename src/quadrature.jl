@@ -25,8 +25,10 @@ end
 
 ContinuousTransformations.domain(q::Quadrature) = q.domain
 
+Base.length(q::Quadrature) = length(q.nodes)
+
 function Base.show(io::IO, q::Quadrature)
-    print(io, "Quadrature of $(length(q.nodes)) nodes on $(q.domain)")
+    print(io, "Quadrature of $(length(q)) nodes on $(q.domain)")
 end
 
 (q::Quadrature)(f) = dot(f.(q.nodes), q.weights)

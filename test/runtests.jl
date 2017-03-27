@@ -10,6 +10,7 @@ end
 @testset "normal quadrature" begin
     q = quadrature_standard_normal(10)
     @test sprint(show, q) == "Quadrature of 10 nodes on " * sprint(show, ℝ)
+    @test length(q) == 10
     @test domain(q) == ℝ
     @test q(one) ≈ 1
     @test isapprox(q(identity), 0, atol=eps()) # FIXME replace with new test syntax
@@ -24,6 +25,7 @@ end
 @testset "uniform quadrature" begin
     q = quadrature_standard_uniform(9)
     @test sprint(show, q) == "Quadrature of 9 nodes on " * sprint(show, 𝕀)
+    @test length(q) == 9
     @test domain(q) == 𝕀
     @test q(one) ≈ 1
     @test q(identity) ≈ 0.5
