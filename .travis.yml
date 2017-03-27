@@ -9,7 +9,7 @@ julia:
 notifications:
   email: false
 # uncomment the following lines to override the default test script
-#script:
+script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
   - julia -e 'Pkg.clone("git@github.com:tpapp/ContinuousTransformations.jl.git"); Pkg.clone(pwd()); Pkg.build("EconFunctions"); Pkg.test("EconFunctions"; coverage=true)'
 after_success:
