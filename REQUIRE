@@ -1,3 +1,6 @@
 julia 0.5
+ArgCheck
 ContinuousTransformations
 FastGaussQuadrature
+Parameters
+Compat # FIXME only for ∘, remove in v0.6
