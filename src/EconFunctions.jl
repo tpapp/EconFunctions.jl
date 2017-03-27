@@ -1,5 +1,7 @@
 module EconFunctions
 
-# package code goes here
+using FastGaussQuadrature
+
+include("quadrature.jl")
 
 end # module
