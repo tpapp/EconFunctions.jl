@@ -1,6 +1,6 @@
 using ContinuousTransformations
-import ContinuousTransformations: domain
 using FastGaussQuadrature
+using ArgCheck
 
 export Quadrature, quadrature_standard_normal, quadrature_standard_uniform
 
@@ -13,9 +13,21 @@ immutable Quadrature{TD <: AbstractInterval, T}
     domain::TD
     nodes::Vector{T}
     weights::Vector{T}
+    function Quadrature(domain, nodes, weights)
+        @argcheck length(nodes) == length(weights)
+        new(domain, nodes, weights)
+    end
 end
 
-domain(q::Quadrature) = q.domain
+function Quadrature{TD, T}(domain::TD, nodes::Vector{T}, weights::Vector{T})
+    Quadrature{TD, T}(domain, nodes, weights)
+end
+
+ContinuousTransformations.domain(q::Quadrature) = q.domain
+
+function Base.show(io::IO, q::Quadrature)
+    print(io, "Quadrature of $(length(q.nodes)) nodes on $(q.domain)")
+end
 
 (q::Quadrature)(f) = dot(f.(q.nodes), q.weights)
 
