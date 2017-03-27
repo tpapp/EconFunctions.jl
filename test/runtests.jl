@@ -3,6 +3,10 @@ using ContinuousTransformations
 using Base.Test
 using Compat: ∘
 
+@testset "quadrature general" begin
+    @test_throws ArgumentError Quadrature(1..2, collect(1:3), collect(1:4))
+end
+        
 @testset "normal quadrature" begin
     q = quadrature_standard_normal(10)
     @test sprint(show, q) == "Quadrature of 10 nodes on " * sprint(show, ℝ)
