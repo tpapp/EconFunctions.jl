@@ -2,23 +2,25 @@ import Compat: ∘                # FIXME remove in v0.6
 using ArgCheck
 using Parameters
 
-export CrraUtility, crra_u′
+export crra_u, CrraUtility, crra_u′
 
 """
-CRRA/isoelasticy utility, with risk aversion parameter `σ`.
+CRRA/isoelastic utility, with risk aversion parameter `σ`.
+"""
+@inline function crra_u(c, σ)
+    omσ = one(σ) - σ
+    omσ == zero(omσ) ? log(c) : (c^omσ - 1)/omσ
+end
+
+"""
+CRRA/isoelastic utility, with risk aversion parameter `σ`. Returns a
+function, whcih can be evaluated at `c`. See also `crra_u`.
 """
 immutable CrraUtility{T}
     σ::T
 end
 
-# Could implement as the composite of a Power and an Affine transformation,
-# but then would lose type stability at σ=1.
-
-function (u::CrraUtility)(c)
-    @unpack σ = u
-    omσ = one(σ) - σ
-    omσ == zero(omσ) ? log(c) : (c^omσ - 1)/omσ
-end
+(u::CrraUtility)(c) = crra_u(c, u.σ)
 
 # FIXME at σ=1, the continuous extension of the derivative in σ is
 # -log(c)^2/2, need to implement this, with tests
