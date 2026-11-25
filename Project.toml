@@ -1,0 +1,10 @@
+name = "EconFunctions"
+uuid = "851584e1-a97c-40e1-b40b-fc304c0debd5"
+authors = ["Tamás K. Papp <tkpapp@gmail.com>"]
+version = "0.1.0"
+
+[compat]
+julia = "1.10"
+
+[workspace]
+projects = ["test"]
